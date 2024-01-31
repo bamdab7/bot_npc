@@ -1,7 +1,10 @@
 import logging
 from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
+
 from scripts.meteo import *
+from scripts.jokes import *
+
 from dotenv import load_dotenv
 import os
 
@@ -27,6 +30,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
 
+async def jokes(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=jokes_bot()) 
+
 if __name__ == '__main__':
     # Start the application to operate the bot
     application = ApplicationBuilder().token(TOKEN).build()
@@ -35,9 +41,13 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
 
+    #handler to manage jokes api
+    jokes_handler = CommandHandler('jokes', jokes)
+    application.add_handler(jokes_handler)
+
     #handler to manage meteo api
     meteo_handler = CommandHandler('meteo', meteo)
     application.add_handler(meteo_handler)
-    
+
     # Keeps the application running
     application.run_polling()
