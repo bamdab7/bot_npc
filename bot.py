@@ -26,7 +26,6 @@ logging.basicConfig(
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Soy un hermoso bot, que necesitas?")
 
-
 async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
 
