@@ -5,7 +5,7 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 
 from scripts.meteo import *
 from scripts.jokes import *
-from scripts.starwars import planets, starships,people
+from scripts.starwars import *
 
 from dotenv import load_dotenv
 import os
@@ -42,21 +42,28 @@ async def starwars(update, context):
          InlineKeyboardButton("Naves", callback_data='3')],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text('Por favor, elige una opción:', reply_markup=reply_markup) #TODO -> intentar que los botones respondan
+    await update.message.reply_text('Por favor, elige una opción:', reply_markup=reply_markup) 
 
 async def button_click(update, context):
     query = update.callback_query
-    query.answer()
+
+    if query is None:
+        return
+    
+    await query.answer()
 
     option_selected = query.data
 
-    # Llamar a diferentes clases según la opción seleccionada
+      # Llamar a diferentes funciones según la opción seleccionada
     if option_selected == '1':
-        await people.Option1().execute(update, context)
+        info = await people()
     elif option_selected == '2':
-        await planets.Option2().execute(update, context)
+        info = await planets()
     elif option_selected == '3':
-        await starships.Option3().execute(update, context)
+        info = await starships()
+
+    # await update.message.reply_text(info)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=info) 
 
 
 if __name__ == '__main__':

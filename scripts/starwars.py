@@ -2,7 +2,7 @@ import requests
 
 id = 2
 
-def people():
+async def people():
     url = f"https://swapi.dev/api/people/{id}/"
     response = requests.get(url)
 
@@ -23,11 +23,11 @@ def people():
             movie = peli.json()["title"]
             list_movie.append(movie)
         
-        info = "Name -> {name}\nHeight -> {height} \nHomewordl -> {homeworld} \nAppears in -> {str(list_movie)[1:-1]}"
+        info = f"Name -> {name}\nHeight -> {height} \nHomewordl -> {homeworld} \nAppears in -> {str(list_movie)[1:-1]}"
         
         return info
     
-def planets():
+async def planets():
     url = f"https://swapi.dev/api/planets/{id}/"
     response = requests.get(url)
 
@@ -39,11 +39,11 @@ def planets():
         population = response.json()["population"]
         climate = response.json()["climate"]
         
-        info = "Nome -> {name_planet}\nTerrain -> {terrain}\nPopulation -> {population}\n Climate -> {climate}"
+        info = f"Nome ->{name_planet}\nTerrain -> {terrain}\nPopulation -> {population}\n Climate -> {climate}"
         
         return info
 
-def starships():
+async def starships():
     url = f"https://swapi.dev/api/starships/{id}/"
     response = requests.get(url)
 
@@ -56,6 +56,6 @@ def starships():
         crew = response.json()["crew"]
         passengers = response.json()["passengers"]
 
-        info = "Vehicle name -> {name_vehicle}\nModel -> {model_vehicle}\nManufacturer -> {manufacturer}\nCrew -> {crew} ppl\nPassengers -> {passengers} ppl"
+        info = f"Vehicle name -> {name_vehicle}\nModel -> {model_vehicle}\nManufacturer -> {manufacturer}\nCrew -> {crew} ppl\nPassengers -> {passengers} ppl"
 
         return info
