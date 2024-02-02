@@ -1,11 +1,12 @@
 import logging
 from telegram import Update,  InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
-
+from telegram.constants import ParseMode
 
 from scripts.meteo import *
 from scripts.jokes import *
 from scripts.starwars import *
+from scripts.nasa import *
 
 from dotenv import load_dotenv
 import os
@@ -33,6 +34,13 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, 
                                    text="¡Bienvenido a Anémona de Mar! 🌊 \nEste bot ha sido creado por @bamdab7. \n¿Listo para descubrir y aprender? Prueba con comandos como /starwars, /meteo o /jokes para ir conociendome.\n¡Estoy aquí para ayudarte! 😊👌")
 
+async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
+    img_url = daily_img()
+    img_info = info_img()
+
+    await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url, caption=img_info, parse_mode=ParseMode.MARKDOWN)
+
 
 async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
@@ -50,7 +58,8 @@ async def starwars(update, context):
         InlineKeyboardButton("Peliculas 📽️", callback_data='5')],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("¡Bienvenido a la API de Star Wars! 🌌🚀 Explora la galaxia, descubre personajes, naves y planetas icónicos. Que la fuerza te acompañe en tu búsqueda de datos intergalácticos.", reply_markup=reply_markup) 
+    await update.message.reply_text("¡Bienvenido a la API de Star Wars! 🌌🚀 Explora la galaxia, descubre personajes, naves y planetas icónicos. Que la fuerza te acompañe en tu búsqueda de datos intergalácticos.", 
+                                    reply_markup=reply_markup) 
 
 async def button_click(update, context):
     query = update.callback_query
@@ -96,6 +105,10 @@ if __name__ == '__main__':
     #handler to manage meteo api
     meteo_handler = CommandHandler('meteo', meteo)
     application.add_handler(meteo_handler)
+
+    #handler to manage nasa img
+    nasa_handler = CommandHandler('nasa', nasa)
+    application.add_handler(nasa_handler)
 
     #handler to manage star wars
     starwars_handler = CommandHandler('starwars', starwars)
