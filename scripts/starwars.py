@@ -28,7 +28,7 @@ async def people():
             movie = peli.json()["title"]
             list_movie.append(movie)
         
-        info = f"Nombre: {name}\nAltura: {height} cm \nProcedencia: {homeworld} \nAparece en: {str(list_movie)[1:-1]}"
+        info = f"\n👽 PERSONAJES 👽\nNombre: {name}\nAltura: {height} cm \nProcedencia: {homeworld} \nAparece en: {str(list_movie)[1:-1]}"
         
         return info
     
@@ -48,7 +48,7 @@ async def planets():
         population = response.json()["population"]
         climate = response.json()["climate"]
         
-        info = f"Nombre: {name_planet}\nTipo de terreno: {terrain}\nPoblacion: {population}\nClima: {climate}"
+        info = f"\n🪐 PLANETAS 🪐\nNombre: {name_planet}\nTipo de terreno: {terrain}\nPoblacion: {population}\nClima: {climate}"
         
         return info
 
@@ -70,7 +70,7 @@ async def starships():
         crew = response.json()["crew"]
         passengers = response.json()["passengers"]
 
-        info = f"Nombre: {name_vehicle}\nModelo: {model_vehicle}\nFabricante: {manufacturer}\nTripulacion: {crew} ppl\nPasajeros: {passengers} ppl"
+        info = f"\n🛸 NAVES 🛸\nNombre: {name_vehicle}\nModelo: {model_vehicle}\nFabricante: {manufacturer}\nTripulacion: {crew} ppl\nPasajeros: {passengers} ppl"
 
         return info
     
@@ -101,7 +101,7 @@ async def species():
             people = p.json()["name"]
             list_people.append(people)
         
-        info = f"Nombre de especie: {name_specie}\nTipo: {classification}\nIdioma hablado: {language}\nHogar: {homeworld} \nEjemplos: {str(list_people)[1:-1]}"
+        info = f"\n🧬 ESPECIES 🧬\nNombre de especie: {name_specie}\nTipo: {classification}\nIdioma hablado: {language}\nHogar: {homeworld} \nEjemplos: {str(list_people)[1:-1]}"
 
         return info
 
@@ -120,6 +120,6 @@ async def films():
         director = response.json()["director"]
         opening_crawl = response.json()["opening_crawl"]
 
-        info = f"titulo {title}\nDirector: {director}\nInicio: {opening_crawl}"
+        info = f"\n📽️ PELICULAS 📽️\nTitulo {title}\nDirector: {director}\nInicio: {opening_crawl}"
 
         return info
