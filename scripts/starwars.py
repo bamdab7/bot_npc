@@ -1,16 +1,18 @@
 import requests
-from random import randrange, uniform
+from random import randrange, random
 
-# id = 2
+id = 0
 
 async def people():
+    id = 0
     #numero de naves 82
     id = randrange(0, 82)
     url = f"https://swapi.dev/api/people/{id}/"
     response = requests.get(url)
 
     if response.status_code != 200:
-        print("Peticion no es valida")
+        info = "Ser desconocido, prueba otra vez... 👽"
+        return info
     else: 
         name = response.json()["name"]
         height = response.json()["height"]
@@ -31,13 +33,15 @@ async def people():
         return info
     
 async def planets():
+    id = 0
     #numero de naves 60
     id = randrange(0, 60)
     url = f"https://swapi.dev/api/planets/{id}/"
     response = requests.get(url)
 
     if response.status_code != 200:
-        print("Peticion no es valida")
+        info = "Este planeta aun no lo exploramos , prueba otra vez... 👽"
+        return info
     else: 
         name_planet = response.json()["name"]
         terrain = response.json()["terrain"]
@@ -49,13 +53,16 @@ async def planets():
         return info
 
 async def starships():
-    #numero de naves 36
-    id = randrange(0, 36)
+    id = randrange(0,36)
+    # mi_array = [2,3,5,9,10,11,12,13,15,17,21,22,23,27,28,29,31,32,39,40,41,43,47,48,49,52,]
+    # id = random.choice(mi_array)
+
     url = f"https://swapi.dev/api/starships/{id}/"
     response = requests.get(url)
 
     if response.status_code != 200:
-        print("Peticion no es valida")
+        info = "Esta nave esta lejos no podemos verla, prueba otra vez... 👽"
+        return info
     else: 
         name_vehicle = response.json()["name"]
         model_vehicle = response.json()["model"]
@@ -68,13 +75,15 @@ async def starships():
         return info
     
 async def species():
+    id = 0
     #numero de especies 37
     id = randrange(0, 37)
     url = f"https://swapi.dev/api/species/{id}/"
     response = requests.get(url)
 
     if response.status_code != 200:
-        print("Peticion no es valida")
+        info = "Especie nueva, todavia no la identificamos, prueba otra vez... 👽"
+        return info
     else: 
         name_specie = response.json()["name"]
         classification = response.json()["classification"]
@@ -97,13 +106,15 @@ async def species():
         return info
 
 async def films():
+    id = 0
     #numero de peliculas 6 (sospechoso btw)
     id = randrange(0, 6)
     url = f"https://swapi.dev/api/films/{id}/"
     response = requests.get(url)
 
     if response.status_code != 200:
-        print("Peticion no es valida")
+        info = "No hicimos esta peli, prueba otra vez... 👽"
+        return info
     else: 
         title = response.json()["title"]
         director = response.json()["director"]
