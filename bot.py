@@ -40,6 +40,8 @@ async def starwars(update, context):
         [InlineKeyboardButton("Personas", callback_data='1'),
          InlineKeyboardButton("Planetas", callback_data='2'),
          InlineKeyboardButton("Naves", callback_data='3')],
+        [InlineKeyboardButton("Especies", callback_data='4'),
+        InlineKeyboardButton("Peliculas", callback_data='5')],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text('Por favor, elige una opción:', reply_markup=reply_markup) 
@@ -54,13 +56,17 @@ async def button_click(update, context):
 
     option_selected = query.data
 
-      # Llamar a diferentes funciones según la opción seleccionada
+    # Llamar a diferentes funciones según la opción seleccionada
     if option_selected == '1':
         info = await people()
     elif option_selected == '2':
         info = await planets()
     elif option_selected == '3':
         info = await starships()
+    elif option_selected == '4':
+        info = await species()
+    elif option_selected == '5':
+        info = await films()
 
     # await update.message.reply_text(info)
     await context.bot.send_message(chat_id=update.effective_chat.id, text=info) 
