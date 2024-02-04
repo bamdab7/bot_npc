@@ -2,8 +2,15 @@ import requests
 import pandas as pd
 from IPython import display
 
+
+from dotenv import load_dotenv
+import os
+
 url = "https://api.nasa.gov/planetary/apod"
-api_key = "0LriAYOQvavORehcyvdO8QHcVhtEgg0Jr65ECYLe"
+
+load_dotenv()
+api_key = os.getenv("api_key")    
+
 
 
 

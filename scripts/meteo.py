@@ -50,15 +50,15 @@ def meteo_bot():
     # return linea1, linea2, linea3
 
     informacion_meteo = (
-            f"O concello seleccionado é {nomeConcello} \n"
-            f"Temperatura máxima de hoxe -> {tMax}º\n"
-            f"Temperatura mínima de hoxe -> {tMin}º\n\n"
-            f"Estado do ceo pola maña -> {estado_manha_ceo}\n"
-            f"Estado do ceo pola tarde -> {estado_tarde_ceo}\n"
-            f"Estado do ceo pola noite -> {estado_noite_ceo}\n\n"
-            f"Estado do vento pola maña -> {estado_manha_vento}\n"
-            f"Estado do vento pola tarde -> {estado_tarde_vento}\n"
-            f"Estado do vento pola noite -> {estado_noite_vento}"
+            f"O concello seleccionado é *{nomeConcello}* \n"
+            f"Temperatura máxima de hoxe -> *{tMax}º*\n"
+            f"Temperatura mínima de hoxe -> *{tMin}º*\n\n"
+            f"Estado do ceo pola maña -> *{estado_manha_ceo}*\n"
+            f"Estado do ceo pola tarde -> *{estado_tarde_ceo}*\n"
+            f"Estado do ceo pola noite -> *{estado_noite_ceo}*\n\n"
+            f"Estado do vento pola maña -> *{estado_manha_vento}*\n"
+            f"Estado do vento pola tarde -> *{estado_tarde_vento}*\n"
+            f"Estado do vento pola noite -> *{estado_noite_vento}*"
         )
 
     return informacion_meteo
