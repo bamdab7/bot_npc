@@ -37,13 +37,17 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
     img_url = daily_img()
-    img_info = info_img()
+    texto = info_img()
 
-    await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url, caption=img_info, parse_mode=ParseMode.MARKDOWN)
+    if len(texto) <= 1024:  # Adjust the limit as needed
+       await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url, caption=texto, parse_mode=ParseMode.MARKDOWN)
+    else:
+       await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url)
 
+    await context.bot.send_message(chat_id=update.message.chat_id, text=texto, parse_mode=ParseMode.MARKDOWN)
 
 async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot(), parse_mode=ParseMode.MARKDOWN) 
 
 async def jokes(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=jokes_bot()) 
@@ -84,7 +88,7 @@ async def button_click(update, context):
         info = await films()
 
     # await update.message.reply_text(info)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=info) 
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=info,parse_mode=ParseMode.MARKDOWN) 
 
 
 if __name__ == '__main__':
