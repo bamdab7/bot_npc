@@ -11,7 +11,7 @@ async def people():
     response = requests.get(url)
 
     if response.status_code != 200:
-        info = "Ser desconocido, prueba otra vez... 👽"
+        info = f"La identificacion con num {id} de este individuo no esta en nuestra base de datos, prueba otra vez... 👽"
         return info
     else: 
         name = response.json()["name"]
@@ -28,7 +28,7 @@ async def people():
             movie = peli.json()["title"]
             list_movie.append(movie)
         
-        info = f"\n👽 PERSONAJES 👽\nNombre: {name}\nAltura: {height} cm \nProcedencia: {homeworld} \nAparece en: {str(list_movie)[1:-1]}"
+        info = f"\n*👽 PERSONAJES 👽*\nNombre: *{name}*\nAltura: *{height} cm*\nProcedencia: *{homeworld}* \nAparece en: *{str(list_movie)[1:-1]}*"
         
         return info
     
@@ -40,7 +40,7 @@ async def planets():
     response = requests.get(url)
 
     if response.status_code != 200:
-        info = "Este planeta aun no lo exploramos , prueba otra vez... 👽"
+        info = f"El planeta num {id} esta muy lejos, prueba otra vez... 👽"
         return info
     else: 
         name_planet = response.json()["name"]
@@ -48,7 +48,7 @@ async def planets():
         population = response.json()["population"]
         climate = response.json()["climate"]
         
-        info = f"\n🪐 PLANETAS 🪐\nNombre: {name_planet}\nTipo de terreno: {terrain}\nPoblacion: {population}\nClima: {climate}"
+        info = f"\n*🪐 PLANETAS 🪐*\nNombre: *{name_planet}*\nTipo de terreno: *{terrain}*\nPoblacion: *{population}*\nClima: *{climate}*"
         
         return info
 
@@ -61,7 +61,7 @@ async def starships():
     response = requests.get(url)
 
     if response.status_code != 200:
-        info = "Esta nave esta lejos no podemos verla, prueba otra vez... 👽"
+        info = f"Esta nave numero {id} seguro es de nuevos rebeldes,no la conocemos, prueba otra vez... 👽"
         return info
     else: 
         name_vehicle = response.json()["name"]
@@ -70,7 +70,7 @@ async def starships():
         crew = response.json()["crew"]
         passengers = response.json()["passengers"]
 
-        info = f"\n🛸 NAVES 🛸\nNombre: {name_vehicle}\nModelo: {model_vehicle}\nFabricante: {manufacturer}\nTripulacion: {crew} ppl\nPasajeros: {passengers} ppl"
+        info = f"\n*🛸 NAVES 🛸*\nNombre: *{name_vehicle}*\nModelo: *{model_vehicle}*\nFabricante: *{manufacturer}*\nTripulacion: *{crew} ppl*\nPasajeros: *{passengers} ppl*"
 
         return info
     
@@ -82,7 +82,7 @@ async def species():
     response = requests.get(url)
 
     if response.status_code != 200:
-        info = "Especie nueva, todavia no la identificamos, prueba otra vez... 👽"
+        info = f"Especie nueva, todavia no sabemos nada, solo que es la {id} en aparecer, prueba otra vez... 👽"
         return info
     else: 
         name_specie = response.json()["name"]
@@ -101,7 +101,7 @@ async def species():
             people = p.json()["name"]
             list_people.append(people)
         
-        info = f"\n🧬 ESPECIES 🧬\nNombre de especie: {name_specie}\nTipo: {classification}\nIdioma hablado: {language}\nHogar: {homeworld} \nEjemplos: {str(list_people)[1:-1]}"
+        info = f"\n*🧬 ESPECIES 🧬*\nNombre de especie: *{name_specie}*\nTipo: *{classification}*\nIdioma hablado: *{language}*\nHogar: *{homeworld}* \nEjemplos: *{str(list_people)[1:-1]}*"
 
         return info
 
@@ -113,13 +113,13 @@ async def films():
     response = requests.get(url)
 
     if response.status_code != 200:
-        info = "No hicimos esta peli, prueba otra vez... 👽"
+        info = f"No hicimos esta peli numero {id}, prueba otra vez... 👽"
         return info
     else: 
         title = response.json()["title"]
         director = response.json()["director"]
         opening_crawl = response.json()["opening_crawl"]
 
-        info = f"\n📽️ PELICULAS 📽️\nTitulo {title}\nDirector: {director}\nInicio: {opening_crawl}"
+        info = f"\n*📽️ PELICULAS 📽️*\nTitulo *{title}*\nDirector: *{director}*\nInicio: *{opening_crawl}*"
 
         return info
