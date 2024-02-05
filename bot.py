@@ -7,6 +7,7 @@ from scripts.meteo import *
 from scripts.jokes import *
 from scripts.starwars import *
 from scripts.nasa import *
+from scripts.noticias import *
 
 from dotenv import load_dotenv
 import os
@@ -51,19 +52,34 @@ async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def jokes(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=jokes_bot()) 
 
+#---------------------------------------------------------------------------------------
 #funcion que abre un menu despegable con mas consultas sobre star wars
 async def starwars(update, context):
-    keyboard = [
+    keyboard1 = [
         [InlineKeyboardButton("Personajes 👽", callback_data='1'),
          InlineKeyboardButton("Planetas 🪐", callback_data='2'),
          InlineKeyboardButton("Naves 🛸", callback_data='3')],
         [InlineKeyboardButton("Especies 🧬", callback_data='4'),
         InlineKeyboardButton("Peliculas 📽️", callback_data='5')],
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard1)
     await update.message.reply_text("¡Bienvenido a la API de Star Wars! 🌌🚀 Explora la galaxia, descubre personajes, naves y planetas icónicos. Que la fuerza te acompañe en tu búsqueda de datos intergalácticos.", 
                                     reply_markup=reply_markup) 
 
+    
+#funcion que abre un menu despegable con mas consultas sobre star wars
+async def scrapp(update, context):
+    keyboard2 = [
+        [InlineKeyboardButton("La Voz de Galicia 📰", callback_data='6'),
+         InlineKeyboardButton("Baloncesto 🏀", callback_data='7'),
+         InlineKeyboardButton("Cartelera 🎬", callback_data='8')],
+        [InlineKeyboardButton("Propuesta", callback_data='9')],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard2)
+    await update.message.reply_text("¡Bienvenido a nuestro bot informativo! 📰🎬 \n Explora las últimas noticias de los periódicos más destacados y descubre los eventos más emocionantes en tu ciudad. \n¡Disfruta de la información fresca y el entretenimiento en un solo lugar! 🤖", 
+                                    reply_markup=reply_markup) 
+    
+#-----------------------------------------------------------------------------------
 async def button_click(update, context):
     query = update.callback_query
 
@@ -85,21 +101,18 @@ async def button_click(update, context):
         info = await species()
     elif option_selected == '5':
         info = await films()
+    elif option_selected == '6':
+        info = await voz_galicia()
+    elif option_selected == '7':
+        info = await basket()
+    
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=info, parse_mode=ParseMode.MARKDOWN) 
 
     # await update.message.reply_text(info)
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=info,parse_mode=ParseMode.MARKDOWN) 
+    # await context.bot.send_message(chat_id=update.effective_chat.id, text=info,parse_mode=ParseMode.MARKDOWN) 
 
-#funcion que abre un menu despegable con mas consultas sobre star wars
-async def scrapp(update, context):
-    keyboard = [
-        [InlineKeyboardButton("La Voz de Galicia 📰", callback_data='1'),
-         InlineKeyboardButton("La Opinion 📰", callback_data='2'),
-         InlineKeyboardButton("Cartelera 🎬", callback_data='3')],
-        [InlineKeyboardButton("Propuesta", callback_data='5')],
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("¡Bienvenido a nuestro bot informativo! 📰🎬 \n Explora las últimas noticias de los periódicos más destacados y descubre los eventos más emocionantes en tu ciudad. \n¡Disfruta de la información fresca y el entretenimiento en un solo lugar! 🤖", 
-                                    reply_markup=reply_markup) 
+#----------------------------------------------------------------------------------
+    
 #TODO -> FALTA EL MANEJO DE LOS BOTONES, HASTA QUE NO ESTE EL SCRAPPING NO SE PONEN
 
 if __name__ == '__main__':
@@ -135,6 +148,7 @@ if __name__ == '__main__':
 
 
     application.add_handler(CallbackQueryHandler(button_click))
+
 
 
     # Keeps the application running
