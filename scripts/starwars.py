@@ -6,7 +6,7 @@ id = 0
 async def people():
     id = 0
     #numero de naves 82
-    id = randrange(0, 82)
+    id = randrange(1, 82)
     url = f"https://swapi.dev/api/people/{id}/"
     response = requests.get(url)
 
@@ -35,7 +35,7 @@ async def people():
 async def planets():
     id = 0
     #numero de naves 60
-    id = randrange(0, 60)
+    id = randrange(1, 60)
     url = f"https://swapi.dev/api/planets/{id}/"
     response = requests.get(url)
 
@@ -53,7 +53,7 @@ async def planets():
         return info
 
 async def starships():
-    id = randrange(0,36)
+    id = randrange(1,36)
     # mi_array = [2,3,5,9,10,11,12,13,15,17,21,22,23,27,28,29,31,32,39,40,41,43,47,48,49,52,]
     # id = random.choice(mi_array)
 
@@ -77,7 +77,7 @@ async def starships():
 async def species():
     id = 0
     #numero de especies 37
-    id = randrange(0, 37)
+    id = randrange(1, 37)
     url = f"https://swapi.dev/api/species/{id}/"
     response = requests.get(url)
 
@@ -108,7 +108,7 @@ async def species():
 async def films():
     id = 0
     #numero de peliculas 6 (sospechoso btw)
-    id = randrange(0, 6)
+    id = randrange(1, 6)
     url = f"https://swapi.dev/api/films/{id}/"
     response = requests.get(url)
 

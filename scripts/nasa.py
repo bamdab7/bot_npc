@@ -25,6 +25,6 @@ def info_img():
 def daily_img():
     response = requests.get(url, params = {"api_key" : api_key})
     image = response.json()["url"]
-    img = display.Image(image)
+    # img = display.Image(image)
 
     return image
