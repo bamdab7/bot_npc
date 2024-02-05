@@ -42,9 +42,8 @@ async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if len(texto) <= 1024:  # Adjust the limit as needed
        await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url, caption=texto, parse_mode=ParseMode.MARKDOWN)
     else:
-       await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url)
-
-    await context.bot.send_message(chat_id=update.message.chat_id, text=texto, parse_mode=ParseMode.MARKDOWN)
+        await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url)
+        await context.bot.send_message(chat_id=update.message.chat_id, text=texto, parse_mode=ParseMode.MARKDOWN)
 
 async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot(), parse_mode=ParseMode.MARKDOWN) 
@@ -90,6 +89,18 @@ async def button_click(update, context):
     # await update.message.reply_text(info)
     await context.bot.send_message(chat_id=update.effective_chat.id, text=info,parse_mode=ParseMode.MARKDOWN) 
 
+#funcion que abre un menu despegable con mas consultas sobre star wars
+async def scrapp(update, context):
+    keyboard = [
+        [InlineKeyboardButton("La Voz de Galicia 📰", callback_data='1'),
+         InlineKeyboardButton("La Opinion 📰", callback_data='2'),
+         InlineKeyboardButton("Cartelera 🎬", callback_data='3')],
+        [InlineKeyboardButton("Propuesta", callback_data='5')],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("¡Bienvenido a nuestro bot informativo! 📰🎬 \n Explora las últimas noticias de los periódicos más destacados y descubre los eventos más emocionantes en tu ciudad. \n¡Disfruta de la información fresca y el entretenimiento en un solo lugar! 🤖", 
+                                    reply_markup=reply_markup) 
+#TODO -> FALTA EL MANEJO DE LOS BOTONES, HASTA QUE NO ESTE EL SCRAPPING NO SE PONEN
 
 if __name__ == '__main__':
     # Start the application to operate the bot
@@ -117,6 +128,11 @@ if __name__ == '__main__':
     #handler to manage star wars
     starwars_handler = CommandHandler('starwars', starwars)
     application.add_handler(starwars_handler)
+    
+    #handler to manage scrapping
+    scrapping_handler = CommandHandler('scrapp', scrapp)
+    application.add_handler(scrapping_handler)
+
 
     application.add_handler(CallbackQueryHandler(button_click))
 
