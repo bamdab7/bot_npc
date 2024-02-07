@@ -18,7 +18,8 @@ async def voz_galicia():
         listado_noticias.append(notice)
     
     for i in listado_noticias[:5]: #las 5 mas importantes
-        mensaje+= f"{i[0]} \n _{url_voz_galicia}{i[1]}_ \n \n"
+        # mensaje+= f"{i[0]} \n _{url_voz_galicia}{i[1]}_ \n \n"
+        mensaje+= f"• [{i[0]}]({url_voz_galicia}{i[1]}) \n \n"
     # print(mensaje)
     return mensaje
 
@@ -42,6 +43,11 @@ async def basket():
         listado_noticias.append(notice)
         
     for i in listado_noticias[:5]: #las 5 mas importantes
-        mensaje+= f"{i[0]} \n _{i[1]}_ \n \n"
+        # mensaje+= f"{i[0]} \n _{i[1]}_ \n \n"
+        
+        mensaje += f"• [{i[0]}]({i[1]})\n \n"
+
+
+
     # print(mensaje)
     return mensaje

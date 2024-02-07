@@ -12,6 +12,7 @@ from scripts.noticias import *
 from dotenv import load_dotenv
 import os
 
+wait = "Obteniendo datos ... ⌛"
 # Authentication to manage the bot
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
@@ -36,6 +37,8 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    text="¡Bienvenido a Anémona de Mar! 🌊 \nEste bot ha sido creado por @bamdab7. \n¿Listo para descubrir y aprender? Prueba con comandos como /starwars, /meteo o /jokes para ir conociendome.\n¡Estoy aquí para ayudarte! 😊👌")
 
 async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    waiting = await context.bot.send_message(chat_id=update.effective_chat.id, text=wait, parse_mode=ParseMode.MARKDOWN)
+    
     # await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot()) 
     img_url = daily_img()
     texto = info_img()
@@ -45,7 +48,9 @@ async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_url)
         await context.bot.send_message(chat_id=update.message.chat_id, text=texto, parse_mode=ParseMode.MARKDOWN)
-
+    #mensaje de espera    
+    await context.bot.delete_message(chat_id=update.effective_chat.id, message_id=waiting.message_id)
+    
 async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_bot(), parse_mode=ParseMode.MARKDOWN) 
 
@@ -73,7 +78,6 @@ async def scrapp(update, context):
         [InlineKeyboardButton("La Voz de Galicia 📰", callback_data='6'),
          InlineKeyboardButton("Baloncesto 🏀", callback_data='7'),
          InlineKeyboardButton("Cartelera 🎬", callback_data='8')],
-        [InlineKeyboardButton("Propuesta", callback_data='9')],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard2)
     await update.message.reply_text("¡Bienvenido a nuestro bot informativo! 📰🎬 \n Explora las últimas noticias de los periódicos más destacados y descubre los eventos más emocionantes en tu ciudad. \n¡Disfruta de la información fresca y el entretenimiento en un solo lugar! 🤖", 
@@ -81,6 +85,7 @@ async def scrapp(update, context):
     
 #-----------------------------------------------------------------------------------
 async def button_click(update, context):
+    waiting = await context.bot.send_message(chat_id=update.effective_chat.id, text=wait, parse_mode=ParseMode.MARKDOWN)
     query = update.callback_query
 
     if query is None:
@@ -107,6 +112,9 @@ async def button_click(update, context):
         info = await basket()
     
     await context.bot.send_message(chat_id=update.effective_chat.id, text=info, parse_mode=ParseMode.MARKDOWN) 
+    
+    #mensaje de espera
+    await context.bot.delete_message(chat_id=update.effective_chat.id, message_id=waiting.message_id)
 
     # await update.message.reply_text(info)
     # await context.bot.send_message(chat_id=update.effective_chat.id, text=info,parse_mode=ParseMode.MARKDOWN) 
