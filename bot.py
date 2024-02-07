@@ -110,6 +110,8 @@ async def button_click(update, context):
         info = await voz_galicia()
     elif option_selected == '7':
         info = await basket()
+    elif option_selected == '8':
+        info = await cartelera()
     
     await context.bot.send_message(chat_id=update.effective_chat.id, text=info, parse_mode=ParseMode.MARKDOWN) 
     

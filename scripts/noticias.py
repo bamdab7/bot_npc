@@ -26,9 +26,7 @@ async def voz_galicia():
 
 async def basket():
     url_basket = "https://www.leboro.es/noticias.aspx"
-
     pagina_basket = requests.get(url_basket)
-
     soup = BeautifulSoup(pagina_basket.content, "html.parser")
     
     noticias = soup.find_all(class_ = "titulo")
@@ -47,7 +45,30 @@ async def basket():
         
         mensaje += f"• [{i[0]}]({i[1]})\n \n"
 
-
-
     # print(mensaje)
+    return mensaje
+
+
+async def cartelera():
+    url_cartelera = "https://www.ecartelera.com/cines/cinesa-marineda-city/"
+    pagina_cartelera = requests.get(url_cartelera)
+    soup = BeautifulSoup(pagina_cartelera.content, "html.parser")
+    
+    peliculas = soup.find_all(class_ = "titem")
+    
+    listado_peliculas = []
+    mensaje = " 📽️*CARTELERA*📽️ \n"
+
+    for p in peliculas:
+        titulo = p.find(class_ ="tit").text
+        link = p.find(class_ = "tit").find("a").get("href")
+        
+        casts = [actor.text for actor in p.find(class_ = "cast").find_all("a")]
+        director = p.find(class_ = "dir").text.replace("Dir.:", "")
+        pelicula = [titulo, link, casts, director]
+        listado_peliculas.append(pelicula)
+    
+    for i in listado_peliculas[:10]:
+        mensaje += f"*Titulo:* [{i[0]}]({i[1]}) \n👥 *Cast:* {', '.join(i[2])} \n🎥 *Director:* {i[3]} \n \n"
+
     return mensaje
