@@ -57,18 +57,36 @@ async def cartelera():
     peliculas = soup.find_all(class_ = "titem")
     
     listado_peliculas = []
-    mensaje = " 📽️*CARTELERA*📽️ \n"
+    mensaje = " 📽️*CARTELERA*📽️ \n\n"
 
     for p in peliculas:
         titulo = p.find(class_ ="tit").text
         link = p.find(class_ = "tit").find("a").get("href")
         
+        datas = [data.text for data in p.find(class_ = "data").find_all("span")]
+
         casts = [actor.text for actor in p.find(class_ = "cast").find_all("a")]
+
         director = p.find(class_ = "dir").text.replace("Dir.:", "")
-        pelicula = [titulo, link, casts, director]
+        
+        pelicula = [titulo, link,datas, casts, director]
+        
         listado_peliculas.append(pelicula)
-    
-    for i in listado_peliculas[:10]:
-        mensaje += f"*Titulo:* [{i[0]}]({i[1]}) \n👥 *Cast:* {', '.join(i[2])} \n🎥 *Director:* {i[3]} \n \n"
+        
+    for i in listado_peliculas[:6]:
+        if len(i[2]) != 4:
+            i[2].append("Pendiente de clasificación")
+        
+        # mensaje += f"🎬 *{i[0]}*\n🌐 [Sitio Web]({i[1]})\n🕰️ *Duración:* {i[2][0]}\n🌍 *Origen:* {i[2][1]}\n🎭 *Género:*{i[2][2]}\n🔞 *Clasificación:*{i[2][3]}\n👥 *Reparto:* {', '.join(i[3])}\n🎥 *Director:*{i[4]} \n\n"
+        mensaje += f'''
+🎬*{i[0]}* 
+    🌐 [Sitio Web]({i[1]}) 
+    🕰️ *Duración:* {i[2][0]}  
+    🌍 *Origen:* {i[2][1]} 
+    🎭 *Género:* {i[2][2]}
+    🔞 *Clasificación:* {i[2][3]}
+    👥 *Reparto:* {', '.join(i[3])} 
+    🎥 *Director:* {i[4]} 
+    '''
 
     return mensaje
