@@ -71,13 +71,13 @@ async def starwars(update, context):
     await update.message.reply_text("¡Bienvenido a la API de Star Wars! 🌌🚀 Explora la galaxia, descubre personajes, naves y planetas icónicos. Que la fuerza te acompañe en tu búsqueda de datos intergalácticos.", 
                                     reply_markup=reply_markup) 
 
-    
 #funcion que abre un menu despegable con mas consultas sobre star wars
 async def scrapp(update, context):
     keyboard2 = [
         [InlineKeyboardButton("La Voz de Galicia 📰", callback_data='6'),
          InlineKeyboardButton("Baloncesto 🏀", callback_data='7'),
          InlineKeyboardButton("Cartelera 🎬", callback_data='8')],
+        [InlineKeyboardButton("Palabras más buscada 📖", callback_data='9')],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard2)
     await update.message.reply_text("¡Bienvenido a nuestro bot informativo! 📰🎬 \n Explora las últimas noticias de los periódicos más destacados y descubre los eventos más emocionantes en tu ciudad. \n¡Disfruta de la información fresca y el entretenimiento en un solo lugar! 🤖", 
@@ -112,18 +112,14 @@ async def button_click(update, context):
         info = await basket()
     elif option_selected == '8':
         info = await cartelera()
+    elif option_selected == '9':
+        info = await palabra()
     
     await context.bot.send_message(chat_id=update.effective_chat.id, text=info, parse_mode=ParseMode.MARKDOWN) 
     
     #mensaje de espera
     await context.bot.delete_message(chat_id=update.effective_chat.id, message_id=waiting.message_id)
-
-    # await update.message.reply_text(info)
-    # await context.bot.send_message(chat_id=update.effective_chat.id, text=info,parse_mode=ParseMode.MARKDOWN) 
-
 #----------------------------------------------------------------------------------
-    
-#TODO -> FALTA EL MANEJO DE LOS BOTONES, HASTA QUE NO ESTE EL SCRAPPING NO SE PONEN
 
 if __name__ == '__main__':
     # Start the application to operate the bot

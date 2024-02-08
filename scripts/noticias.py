@@ -1,5 +1,45 @@
 import requests
 from bs4 import BeautifulSoup
+import random
+
+async def palabra():
+    url = "https://academia.gal/dicionario"
+    pagina_rag = requests.get(url)
+    soup = BeautifulSoup(pagina_rag.content, "html.parser")
+    
+    palabras = soup.find_all(class_ = "dictionary-topsearch__item")
+
+    listado_palabras = []
+
+    for n in palabras:
+        nombre = n.find(class_ = "dictionary-topsearch__link").text
+        link = n.find(class_ = "dictionary-topsearch__link").get("href")
+        
+        pagina_def = requests.get(link)
+        
+        soup = BeautifulSoup(pagina_def.content, "html.parser")
+        def_pag= soup.find_all(class_ = "Lemma")
+        
+        listado_definiciones =[]
+        for d in def_pag:
+            definicion = [defi.text for defi in d.find(class_ = "Definition__Definition")]
+            listado_definiciones.append(definicion)
+            
+        palabra = [nombre,listado_definiciones]
+        
+        listado_palabras.append(palabra)
+
+    indices_muestra = random.sample(range(len(listado_palabras)), 5)
+
+    mensaje = "📖 *PALABRAS MÁS BUSCADAS RAG* 📖 \n"
+    for indice in indices_muestra:
+        palabra = listado_palabras[indice]
+        mensaje += f"\n*{palabra[0]}*\n"
+        for definicion in palabra[1]:
+            mensaje += f" •  {''.join(definicion)} \n"
+
+    return(mensaje)
+
 
 async def voz_galicia():
     url_voz_galicia = "https://www.lavozdegalicia.es/coruna/"
@@ -17,9 +57,9 @@ async def voz_galicia():
         notice = [titulo,enlace]
         listado_noticias.append(notice)
     
-    for i in listado_noticias[:5]: #las 5 mas importantes
+    for i in random.sample(listado_noticias,5): #las 5 mas importantes
         # mensaje+= f"{i[0]} \n _{url_voz_galicia}{i[1]}_ \n \n"
-        mensaje+= f"• [{i[0]}]({url_voz_galicia}{i[1]}) \n \n"
+        mensaje+= f"• [{i[0]}]({url_voz_galicia}{i[1]})\n \n"
     # print(mensaje)
     return mensaje
 
@@ -40,7 +80,7 @@ async def basket():
         notice = [titulo,enlace]
         listado_noticias.append(notice)
         
-    for i in listado_noticias[:5]: #las 5 mas importantes
+    for i in random.sample(listado_noticias,5): #las 5 mas importantes
         # mensaje+= f"{i[0]} \n _{i[1]}_ \n \n"
         
         mensaje += f"• [{i[0]}]({i[1]})\n \n"
@@ -73,7 +113,7 @@ async def cartelera():
         
         listado_peliculas.append(pelicula)
         
-    for i in listado_peliculas[:6]:
+    for i in listado_peliculas[:5]:
         if len(i[2]) != 4:
             i[2].append("Pendiente de clasificación")
         
