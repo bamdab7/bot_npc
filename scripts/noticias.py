@@ -107,7 +107,13 @@ async def cartelera():
 
         casts = [actor.text for actor in p.find(class_ = "cast").find_all("a")]
 
-        director = p.find(class_ = "dir").text.replace("Dir.:", "")
+        # director = p.find(class_ = "dir").text.replace("Dir.:", "")
+        director_element = p.find(class_="dir")
+
+        if director_element is not None:
+            director = director_element.text.replace("Dir.:", "")
+        else:
+            director = "Desconocido"
         
         pelicula = [titulo, link,datas, casts, director]
         
@@ -119,7 +125,7 @@ async def cartelera():
         
         # mensaje += f"🎬 *{i[0]}*\n🌐 [Sitio Web]({i[1]})\n🕰️ *Duración:* {i[2][0]}\n🌍 *Origen:* {i[2][1]}\n🎭 *Género:*{i[2][2]}\n🔞 *Clasificación:*{i[2][3]}\n👥 *Reparto:* {', '.join(i[3])}\n🎥 *Director:*{i[4]} \n\n"
         mensaje += f'''
-🎬*{i[0]}* 
+🎬 *{i[0]}* 
     🌐 [Sitio Web]({i[1]}) 
     🕰️ *Duración:* {i[2][0]}  
     🌍 *Origen:* {i[2][1]} 
