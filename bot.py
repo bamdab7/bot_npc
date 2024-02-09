@@ -8,6 +8,7 @@ from scripts.jokes import *
 from scripts.starwars import *
 from scripts.nasa import *
 from scripts.noticias import *
+from scripts.bbdd import *
 
 from dotenv import load_dotenv
 import os
@@ -56,6 +57,10 @@ async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def jokes(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=jokes_bot()) 
+    
+async def inferno(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data["user"] = "cualquier cosa"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=inferno()) 
 
 #---------------------------------------------------------------------------------------
 #funcion que abre un menu despegable con mas consultas sobre star wars
@@ -143,6 +148,10 @@ if __name__ == '__main__':
     #handler to manage nasa img
     nasa_handler = CommandHandler('nasa', nasa)
     application.add_handler(nasa_handler)
+    
+    #handler to manage inferno bbdd
+    inferno_handler = CommandHandler('inferno', inferno)
+    application.add_handler(inferno_handler)
 
     #handler to manage star wars
     starwars_handler = CommandHandler('starwars', starwars)
