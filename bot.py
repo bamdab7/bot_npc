@@ -58,9 +58,18 @@ async def meteo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def jokes(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=jokes_bot()) 
     
-async def inferno(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.user_data["user"] = "cualquier cosa"
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=inferno()) 
+async def get_inferno(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data["user"] = "waiting_user"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Infroduce tu nombre para saber con qué pecados irás al infierno 🔥👺") 
+    
+async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.user_data:
+        pass
+    elif context.user_data["user"] == "waiting_user":
+        user = update.message.text
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=inferno(user),parse_mode=ParseMode.MARKDOWN)
+        
+        context.user_data["user"] = None
 
 #---------------------------------------------------------------------------------------
 #funcion que abre un menu despegable con mas consultas sobre star wars
@@ -150,8 +159,11 @@ if __name__ == '__main__':
     application.add_handler(nasa_handler)
     
     #handler to manage inferno bbdd
-    inferno_handler = CommandHandler('inferno', inferno)
+    inferno_handler = CommandHandler('inferno', get_inferno)
     application.add_handler(inferno_handler)
+    
+    echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
+    application.add_handler(echo_handler)
 
     #handler to manage star wars
     starwars_handler = CommandHandler('starwars', starwars)
