@@ -18,10 +18,10 @@ wait = "Obteniendo datos ... ⌛"
 # Authentication to manage the bot
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
-# if TOKEN == None:
-#     print("Recuerda indicar la variable TOKEN") 
-#     print("P.ex: docker run --rm --e TOKEN= o_teu_token nomebot")
-#     exit(1)
+if TOKEN == None:
+    print("Recuerda indicar la variable TOKEN") 
+    print("P.ex: docker run --rm --e TOKEN= o_teu_token nomebot")
+    exit(1)
 
 # Show logs in terminal
 logging.basicConfig(
