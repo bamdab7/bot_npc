@@ -9,6 +9,7 @@ from scripts.starwars import *
 from scripts.nasa import *
 from scripts.noticias import *
 from scripts.bbdd import *
+from scripts.fichero import *
 
 from dotenv import load_dotenv
 import os
@@ -36,6 +37,31 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, 
                                    text="¡Bienvenido a Anémona de Mar! 🌊 \nEste bot ha sido creado por @bamdab7. \n¿Listo para descubrir y aprender? Prueba con comandos como /starwars, /meteo o /jokes para ir conociendome.\n¡Estoy aquí para ayudarte! 😊👌")
+
+async def file(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    file = await context.bot.get_file(update.message.document)
+    filename = update.message.document.file_name
+    
+    await file.download_to_drive(filename)
+    current_directory = os.getcwd()
+    path = f"{current_directory}/{filename}"
+    
+    
+    if filename.endswith(".csv"):
+        fichero = csv_to_json(path)
+        await context.bot.send_document(update._effective_chat.id, document=fichero)
+        os.remove(path)
+        os.remove("data.json")
+    
+    elif filename.endswith(".json"):
+        fichero = json_to_csv()
+        await context.bot.send_document(update._effective_chat.id, document=fichero)
+        os.remove(path)
+        os.remove("data.csv")  
+    
+    else:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Fichero no valido", parse_mode=ParseMode.MARKDOWN)
+                                   
 
 async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
     waiting = await context.bot.send_message(chat_id=update.effective_chat.id, text=wait, parse_mode=ParseMode.MARKDOWN)
