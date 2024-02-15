@@ -21,10 +21,16 @@ async def palabra():
         def_pag= soup.find_all(class_ = "Lemma")
         
         listado_definiciones =[]
+        # for d in def_pag:
+        #     definicion = [defi.text for defi in d.find(class_ = "Definition__Definition")]
+        #     listado_definiciones.append(definicion)
+        
         for d in def_pag:
-            definicion = [defi.text for defi in d.find(class_ = "Definition__Definition")]
-            listado_definiciones.append(definicion)
-            
+            definiciones = d.find(class_="Definition__Definition")
+            if definiciones:
+                definicion = [defi.text for defi in definiciones]
+                listado_definiciones.append(definicion)
+
         palabra = [nombre,listado_definiciones]
         
         listado_palabras.append(palabra)

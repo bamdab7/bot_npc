@@ -38,30 +38,39 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, 
                                    text="¡Bienvenido a Anémona de Mar! 🌊 \nEste bot ha sido creado por @bamdab7. \n¿Listo para descubrir y aprender? Prueba con comandos como /starwars, /meteo o /jokes para ir conociendome.\n¡Estoy aquí para ayudarte! 😊👌")
 
-async def file(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def fichero(update: Update, context: ContextTypes.DEFAULT_TYPE):
     file = await context.bot.get_file(update.message.document)
     filename = update.message.document.file_name
+    
+    nombre_fichero = filename.split(".")[0]
     
     await file.download_to_drive(filename)
     current_directory = os.getcwd()
     path = f"{current_directory}/{filename}"
     
-    
     if filename.endswith(".csv"):
-        fichero = csv_to_json(path)
+        fichero = csv_to_json(nombre_fichero,path)
         await context.bot.send_document(update._effective_chat.id, document=fichero)
+        
+        informacion = str(info_fichero_csv(path))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=informacion, parse_mode=ParseMode.MARKDOWN) 
+        
         os.remove(path)
-        os.remove("data.json")
+        os.remove(f"{nombre_fichero}.json")
     
     elif filename.endswith(".json"):
-        fichero = json_to_csv()
+        fichero = json_to_csv(nombre_fichero)
         await context.bot.send_document(update._effective_chat.id, document=fichero)
+        
+        informacion = str(info_fichero_json(path))
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=informacion, parse_mode=ParseMode.MARKDOWN) 
         os.remove(path)
-        os.remove("data.csv")  
+        os.remove(f"{nombre_fichero}.csv") 
     
     else:
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Fichero no valido", parse_mode=ParseMode.MARKDOWN)
-                                   
+
 
 async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
     waiting = await context.bot.send_message(chat_id=update.effective_chat.id, text=wait, parse_mode=ParseMode.MARKDOWN)
@@ -199,7 +208,9 @@ if __name__ == '__main__':
     scrapping_handler = CommandHandler('scrapp', scrapp)
     application.add_handler(scrapping_handler)
 
-
+    #handle to manage files
+    application.add_handler(MessageHandler(filters.Document.ALL, fichero))
+    
     application.add_handler(CallbackQueryHandler(button_click))
 
 
