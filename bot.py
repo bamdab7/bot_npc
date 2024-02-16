@@ -20,7 +20,7 @@ load_dotenv()
 TOKEN = os.getenv("TOKEN")
 if TOKEN == None:
     print("Recuerda indicar la variable TOKEN junto con la variable de la api NASA") 
-    print("docker run --rm -e TOKEN=token_bot -e api_key=api_nasa anemona_bot")
+    print("docker run --rm -e TOKEN=token_bot -e api_key=api_nasa bamdab7/bot_npc")
     exit(1)
 
 # Show logs in terminal
