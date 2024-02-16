@@ -8,4 +8,4 @@ RUN conda env create --file enviroment-anemona.yml
 
 CMD ["/bin/bash", "-c", "source activate anemona && python bot.py"]
 
-# docker build -t anemona_bot
+# docker build -t anemona_bot .

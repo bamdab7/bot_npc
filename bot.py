@@ -19,8 +19,8 @@ wait = "Obteniendo datos ... ⌛"
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
 if TOKEN == None:
-    print("Recuerda indicar la variable TOKEN") 
-    print("P.ex: docker run --rm --e TOKEN= o_teu_token nomebot")
+    print("Recuerda indicar la variable TOKEN junto con la variable de la api NASA") 
+    print("docker run --rm -e TOKEN=token_bot -e api_key=api_nasa anemona_bot")
     exit(1)
 
 # Show logs in terminal
