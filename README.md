@@ -47,7 +47,7 @@ El bot será referenciado con el nombre de **bambab7/bot_npc**
 1. Partiremos del punto en el que hemos descargado la imagen de nuestro bot.
 2. Una vez termina el proceso ejecutaremos en nuestra consola el siguiente comando `docker run bamdab7/bot_npc`. Este comando está incompleto ya que nos faltan ambas TOKENS, pero el mensaje que lanza avisandonos de que faltan, nos permite saber que poner en todo momento. Igual que la instalacion,el lanzamiento tambien es lento debido a la cantidad de cosas que necesita ejecutar.
 ![Mensaje error](img/image-5.png)
-3. Por tanto introduciremos el mensaje sustituyendo por nuestras APIS. El mensaje es este: ´docker run --rm -e TOKEN=tokenbot -e api_key=apinasa bamdab7/bot_npc´
+3. Por tanto introduciremos el mensaje sustituyendo por nuestras APIS. El mensaje es este: `docker run --rm -e TOKEN=tokenbot -e api_key=apinasa bamdab7/bot_npc`
 4. Y de nuevo nos notifica que nuestro bot esta en perfecto funcionamiento
 ![Perfecto](img/image-6.png)
 
