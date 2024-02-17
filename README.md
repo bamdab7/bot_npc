@@ -24,4 +24,8 @@ El bot cuenta con unos comandos propios que permiten ejecutar las diferentes con
 **Consultas**
 
 * **/nasa** obtienes la imagen astronomica del dia gracias a la NASA
-* **/meteo** obtienes la prediccion meteor
+* **/meteo** obtienes la prediccion meteorologica del concello de Monfero
+* **/inferno** una vez introducido este comando podrás comprobar si has cometido un pecado en el infierno (y en el caso de haberlo cometido, cual ha sido)
+* **/jokes** obtienes un chiste variado (mayoritariamente relacionado con informatica)
+* **/scrapp** analiza diversas paginas web
+    1. **Cartelera**: cartelera de cine con las ultimas peliculas e informacion relevante
