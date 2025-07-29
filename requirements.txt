@@ -10,7 +10,7 @@ conda-libmamba-solver @ file:///croot/conda-libmamba-solver_1696257536937/work/s
 conda-package-handling @ file:///croot/conda-package-handling_1690999929514/work
 conda_package_streaming @ file:///croot/conda-package-streaming_1690987966409/work
 cryptography @ file:///croot/cryptography_1694444244250/work
-h11==0.14.0
+h11==0.16.0
 httpcore==1.0.2
 httpx==0.25.2
 idna @ file:///work/ci_py311/idna_1676822698822/work
