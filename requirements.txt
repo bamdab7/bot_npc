@@ -1,4 +1,4 @@
-anyio==4.2.0
+anyio==4.14.2
 boltons @ file:///work/ci_py311/boltons_1677685195580/work
 brotlipy==0.7.0
 certifi @ file:///croot/certifi_1690232220950/work/certifi
